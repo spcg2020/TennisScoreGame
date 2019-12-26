@@ -16,12 +16,16 @@ public class Tennis  implements Game<Tennis>{
     // if anyone won he game, his scores and points will be increased , then need to check if
     public Tennis  playTheGame() {
         if (playerA.getPoint()>=3 && playerA.getScore().equals(Score.Fourty)){
+
             if(playerA.getPoint()-playerB.getPoint()>=2){
-                playerA.hasWonTheMatch(Boolean.TRUE);
+                playerA.winTheBall();
             }
-            if (playerA.getPoint()==playerB.getPoint()){
+           else if (playerA.getPoint()==playerB.getPoint()){
                     playerA.setIsDeuce(Boolean.TRUE);
                     playerB.setIsDeuce(Boolean.TRUE);
+            }else {
+                // playerA will have advantage
+                playerA.setAdvantage(Boolean.TRUE);
             }
         }
         return this;

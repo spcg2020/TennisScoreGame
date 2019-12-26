@@ -13,8 +13,9 @@ public class Player {
     private Score score;
     private int point;
     private boolean leadPlayer;
-    private boolean hasWonTheMatch;
     private boolean deuce;
+    private boolean advantage;
+
 
     public boolean isLeadPlayer() {
         return leadPlayer;
@@ -23,13 +24,18 @@ public class Player {
         this.point=this.point+1;
     }
 
-    public void hasWonTheMatch(Boolean hasWonTheMatch) {
-         hasWonTheMatch = hasWonTheMatch;
-    }
+
     public boolean isDeuce(){
         return deuce;
     }
     public void setIsDeuce(Boolean deuce){
         this.deuce=deuce;
+    }
+
+    public void setAdvantage(boolean advantage) {
+        this.advantage=advantage;
+    }
+    public boolean getAdvantage(){
+        return this.advantage;
     }
 }

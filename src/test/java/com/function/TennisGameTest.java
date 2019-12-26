@@ -65,4 +65,16 @@ public class TennisGameTest {
         assertEquals(Boolean.TRUE,gameResult.getPlayerA().isDeuce());
         assertEquals(Boolean.TRUE,gameResult.getPlayerB().isDeuce());
     }
+
+    // test for advantage condition
+    @Test
+    public void testWhenDeuceAndPlayerXWonTheBallIn1stHitAndGotAdvantage() throws Exception {
+        Player playerA=Player.builder().name("X").playerType(PlayerType.Server).score(Score.Fourty).point(3).build();
+        Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).score(Score.Fourty).point(3).build();
+        playerA.winTheBall();
+
+        Game<Tennis> game=new Tennis(playerA,playerB);
+        Tennis  gameResult=game.playTheGame();
+        assertEquals(Boolean.TRUE,gameResult.getPlayerA().getAdvantage());
+    }
 }
