@@ -7,8 +7,11 @@ public enum Score {
     Thirty(30),
     Fourty(40);
 
-    private int score;
-     Score(int score){
-        this.score=score;
+    private int value;
+     Score(int value){
+        this.value=value;
+    }
+    public int getValue(){
+        return value;
     }
 }

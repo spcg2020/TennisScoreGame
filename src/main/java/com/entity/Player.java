@@ -15,6 +15,7 @@ public class Player {
     private boolean deuce;
     private boolean advantage;
     private boolean hasWonTheGame;
+    private boolean isLeadPlayer;
 
     public PlayerType getPlayerType(){
         return playerType;
@@ -45,5 +46,12 @@ public class Player {
 
     public void setHasWonTheGame(boolean hasWonTheGame) {
         this. hasWonTheGame=hasWonTheGame;
+    }
+
+    public void setIsLeadPlayer(boolean isLeadPlayer){
+        this.isLeadPlayer=isLeadPlayer;
+    }
+    public boolean getIsLeadPlayer(){
+        return isLeadPlayer;
     }
 }

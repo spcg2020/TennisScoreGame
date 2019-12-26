@@ -6,9 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class TennisGameTest {
@@ -18,15 +16,17 @@ public class TennisGameTest {
         // assert for both players against love score
         Player playerA=Player.builder().name("X").playerType(PlayerType.Server).score(Score.Love).build();
         Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).score(Score.Love).build();
-        assertEquals(Score.Love,playerA.getScore());
-        assertEquals(Score.Love,playerB.getScore());
+        Game<Tennis> game=new Tennis(playerA,playerB);
+        Tennis result=game.playTheGame();
+        assertEquals(0,result.getPlayerA().getPoint());
+        assertEquals(0,result.getPlayerB().getPoint());
     }
 
     // test for not null
     @Test
     public void testForNotNullWhenPlayTheGame() throws Exception {
-        Player playerA=Player.builder().name("X").playerType(PlayerType.Server).build();
-        Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).build();
+        Player playerA=Player.builder().name("X").playerType(PlayerType.Server).point(0).build();
+        Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).point(0).build();
         Game<Tennis> game=new Tennis(playerA,playerB);
         Tennis result=game.playTheGame();
         assertNotNull(result);
@@ -41,6 +41,8 @@ public class TennisGameTest {
         Tennis result=game.playTheGame();
         assertEquals(Score.Fifteen,result.getPlayerA().getScore());
         assertEquals(Score.Love, result.getPlayerB().getScore());
+        assertTrue(result.getPlayerA().getIsLeadPlayer());
+
     }
 
     // test to score the point-2nd way
@@ -51,8 +53,9 @@ public class TennisGameTest {
 
         Game<Tennis> game=new Tennis(playerA,playerB);
         Tennis result=game.playTheGame();
-        assertEquals(Score.Fifteen,playerA.getScore());
-        assertEquals(Score.Love,playerB.getScore());
+        assertEquals(Score.Fifteen,result.getPlayerA().getScore());
+        assertEquals(Score.Love,result.getPlayerB().getScore());
+        assertTrue(result.getPlayerA().getIsLeadPlayer());
     }
 
     // test for deuce condition
@@ -83,7 +86,7 @@ public class TennisGameTest {
 
     // test for deuce condition arise again after taking advantage player the  lost game
     @Test
-    public void testWhenDeuceAndPlayerXWonTheBallIn1stHitGotAdvantageButlostTheBallIn2ndHit() throws Exception {
+    public void testWhenDeuceAndPlayerXWonTheBallIn1stHitGotAdvantageButLostTheBallIn2ndHit() throws Exception {
         Player playerA=Player.builder().name("X").playerType(PlayerType.Server).score(Score.Fourty).point(3).build();
         Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).score(Score.Fourty).point(3).build();
         playerA.winTheBall();
@@ -116,4 +119,6 @@ public class TennisGameTest {
         assertNotEquals(Boolean.TRUE, secondGameResult.getPlayerB().isDeuce());
         assertEquals(Boolean.TRUE, secondGameResult.getPlayerA().getHasWonTheGame());
     }
+
+
 }
