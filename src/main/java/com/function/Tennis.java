@@ -18,7 +18,7 @@ public class Tennis  implements Game<Tennis>{
         if (playerA.getPlayerType().equals(PlayerType.Server)){
 
             if (playerA.getPoint() >= 3 && playerA.getScore().equals(Score.Fourty)) {
-                System.out.println("00");
+
                 if (playerA.getPoint() - playerB.getPoint() >= 2) {
                     playerA.setHasWonTheGame(true);
                 } else if (playerA.getPoint() == playerB.getPoint()) {
@@ -26,20 +26,17 @@ public class Tennis  implements Game<Tennis>{
                     playerB.setIsDeuce(Boolean.TRUE);
                 } else {
                     // playerA will have advantage
-                    System.out.println("11");
                     playerA.setAdvantage(Boolean.TRUE);
                 }
             }
            else if (playerA.getPoint() > playerB.getPoint()) {
-                System.out.println("22");
+
                 playerA.setIsLeadPlayer(true);
             }
            else if( playerA.getPoint()==playerB.getPoint()){
-                System.out.println("33"+playerA.getPoint()+" & "+playerB.getPoint());
                 setScoreBasedOnPoint();
             }
           else  if( playerA.getScore()==playerB.getScore()){
-                System.out.println("33");
                 setPointBasedOnScore();
             }
 
