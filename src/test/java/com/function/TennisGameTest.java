@@ -7,6 +7,7 @@ import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -38,8 +39,8 @@ public class TennisGameTest {
 
         Game<Tennis> game=new Tennis(playerA,playerB);
         Tennis result=game.playTheGame();
-        assertEquals(Score.Fifteen,playerA.getScore());
-        assertEquals(Score.Love,playerB.getScore());
+        assertEquals(Score.Fifteen,result.getPlayerA().getScore());
+        assertEquals(Score.Love, result.getPlayerB().getScore());
     }
 
     // test to score the point-2nd way
@@ -76,5 +77,43 @@ public class TennisGameTest {
         Game<Tennis> game=new Tennis(playerA,playerB);
         Tennis  gameResult=game.playTheGame();
         assertEquals(Boolean.TRUE,gameResult.getPlayerA().getAdvantage());
+        assertNotEquals(Boolean.TRUE, gameResult.getPlayerA().isDeuce());
+        assertNotEquals(Boolean.TRUE, gameResult.getPlayerB().isDeuce());
+    }
+
+    // test for deuce condition arise again after taking advantage player the  lost game
+    @Test
+    public void testWhenDeuceAndPlayerXWonTheBallIn1stHitGotAdvantageButlostTheBallIn2ndHit() throws Exception {
+        Player playerA=Player.builder().name("X").playerType(PlayerType.Server).score(Score.Fourty).point(3).build();
+        Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).score(Score.Fourty).point(3).build();
+        playerA.winTheBall();
+        Game<Tennis> firstGame=new Tennis(playerA,playerB);
+        Tennis  firstGameResult=firstGame.playTheGame();
+        assertEquals(Boolean.TRUE,firstGameResult.getPlayerA().getAdvantage());
+
+        // PlayerA lost the game after getting Advantage and therefor both players are in deduce
+        playerB.winTheBall();
+        Game<Tennis> SecondGame=new Tennis(playerA,playerB);
+        Tennis  secondGameResult=SecondGame.playTheGame();
+        assertEquals(Boolean.TRUE,secondGameResult.getPlayerA().isDeuce());
+        assertEquals(Boolean.TRUE,secondGameResult.getPlayerB().isDeuce());
+    }
+
+    @Test
+    public void testWhenDeuceAndPlayerXHavingAdvantageWonTheBall_X_Won_The_Game() throws Exception {
+        Player playerA=Player.builder().name("X").playerType(PlayerType.Server).score(Score.Fourty).point(3).build();
+        Player playerB=Player.builder().name("Y").playerType(PlayerType.Receiver).score(Score.Fourty).point(3).build();
+        playerA.winTheBall();
+        Game<Tennis> firstGame=new Tennis(playerA,playerB);
+        Tennis  firstGameResult=firstGame.playTheGame();
+        assertEquals(Boolean.TRUE,firstGameResult.getPlayerA().getAdvantage());
+
+        // PlayerA won the ball after getting Advantage and finally won the match
+        playerA.winTheBall();
+        Game<Tennis> SecondGame=new Tennis(playerA,playerB);
+        Tennis  secondGameResult=SecondGame.playTheGame();
+        assertNotEquals(Boolean.TRUE, secondGameResult.getPlayerA().isDeuce());
+        assertNotEquals(Boolean.TRUE, secondGameResult.getPlayerB().isDeuce());
+        assertEquals(Boolean.TRUE, secondGameResult.getPlayerA().getHasWonTheGame());
     }
 }

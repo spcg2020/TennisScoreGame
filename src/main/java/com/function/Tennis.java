@@ -13,12 +13,13 @@ public class Tennis  implements Game<Tennis>{
         this.playerB=playerB;
     }
 
-    // if anyone won he game, his scores and points will be increased , then need to check if
+    // if anyone won he game, his scores and points will be increased
     public Tennis  playTheGame() {
-        if (playerA.getPoint()>=3 && playerA.getScore().equals(Score.Fourty)){
+        if (playerA.getPlayerType().equals(PlayerType.Server) &&  playerA.getPoint()>=3 && playerA.getScore().equals(Score.Fourty)){
 
             if(playerA.getPoint()-playerB.getPoint()>=2){
                 playerA.winTheBall();
+                playerA.setHasWonTheGame(true);
             }
            else if (playerA.getPoint()==playerB.getPoint()){
                     playerA.setIsDeuce(Boolean.TRUE);
