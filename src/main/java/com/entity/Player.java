@@ -3,6 +3,7 @@ package com.entity;
 import com.function.Score;
 
 public class Player {
+
     private String name;
     private Score score;
    public Player(String name){

@@ -20,6 +20,7 @@ public class TennisGameTest {
         assertEquals(Score.Love,playerB.getScore());
     }
 
+
     // test to score the point-1st way
     @Test
     public void testWhenOpponentCouldNotHitBackTheBall() throws Exception {

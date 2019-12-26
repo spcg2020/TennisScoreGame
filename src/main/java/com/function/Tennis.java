@@ -13,6 +13,7 @@ public class Tennis  implements Game{
         this.playerB=playerB;
     }
 
+
     // in case of fault, scores would be same for both
     // if anyone won he game, his scores and points will be increased , then need to check if
     public void getScore() {
