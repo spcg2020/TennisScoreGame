@@ -1,7 +1,7 @@
 package com.sports;
 
 
-public interface Game {
+public interface Game<T extends  Game> {
 
-    String getScore();
+    T playTheGame();
 }
