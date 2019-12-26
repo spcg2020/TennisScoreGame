@@ -15,7 +15,8 @@ public class Tennis  implements Game{
 
     // in case of fault, scores would be same for both
     // if anyone won he game, his scores and points will be increased , then need to check if
-    public void getScore() {
+    public String getScore() {
         // A and B   scores, points
+        return "nothing";
     }
 }
